@@ -96,3 +96,7 @@ Custom decorators should follow the pattern of the stock decorators. You can sti
 * Graphs and charts
 * More interesting reports
 * Upgrade to a less-ancient version of Bootstrap
+
+## Author
+
+[Pete Keen](https://www.petekeen.net) is the author of [Mastering Modern Payments](https://www.masteringmodernpayments.com) and [Payola](https://www.payola.io).
