@@ -6,7 +6,7 @@ module StripeReporter
     # Set this to the URL for your database. Remember to
     # uncomment the correct gem in the Gemfile for your
     # sequel adapter.
-    set :database_url, 'sqlite:///'
+    set :database_url, "sqlite://#{ENV['STRIPE_DATA_FILE']}"
 
     # Set this to the report that should be used for your index
     set :index_report, :dashboard

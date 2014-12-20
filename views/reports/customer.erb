@@ -1,0 +1,29 @@
+<% @charges = query do %>
+  select
+    date(created, 'unixepoch') as "Date",
+    id as "Charge",
+    description as "Description",
+    amount / 100.0 as "Amount"
+  from
+    charges
+  where
+    customer in (
+      select
+        id
+      from
+        customers
+      where
+        email = :email
+    )
+  order by
+    date(created) desc
+<% end %>
+
+<div class="page-header">
+  <h1><%= params[:email] %></h1>
+</div>
+<div class="row">
+  <div class="span12">
+    <%= table @charges %>
+  </div>
+</div>

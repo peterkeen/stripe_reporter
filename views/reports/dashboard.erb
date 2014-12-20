@@ -1,5 +1,34 @@
-<h1>Welcome to Sequel::Reporter</h1>
+<% @top_customers_by_currency = query do %>
+SELECT `customer#email` as "Customer", ROUND(SUM(`captured#amount`)/100,2) AS LTV, currency as "Currency"
+FROM charges_api AS ch
+WHERE `customer#email` IS NOT NULL
+GROUP BY `customer#email`, currency
+ORDER BY SUM(`captured#amount`) DESC
+LIMIT 10
+<% end %>
 
-<p>
-  Replace this file <pre>dashboard.erb</pre> with your first report.
-</p>
+<% @charges_by_country = query do %>
+SELECT `card#country` AS "Country", COUNT(id) AS "Charges"
+FROM charges
+GROUP by `card#country`
+ORDER BY `charges` DESC
+LIMIT 10
+<% end %>
+
+<div class="page-header">
+  <h1>StripeReporter Dashboard</h1>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <h3>Top Customers By Currency</h2>
+    <%= table @top_customers_by_currency do |t|
+          t.link /Customer/ => '/reports/customer?email=:this'
+        end %>
+  </div>
+
+  <div class="span6">
+    <h3>Charges by Country</h3>
+    <%= table @charges_by_country %>
+  </div>
+</div>
